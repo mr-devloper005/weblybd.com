@@ -1,15 +1,14 @@
 import type { SiteFactoryRecipe } from '@/design/factory/types'
 
 export const SITE_FACTORY_RECIPE: SiteFactoryRecipe = {
-  brandPack: 'editorial-luxe',
+  brandPack: 'market-utility',
   navbar: 'compact-bar',
   footer: 'editorial-footer',
   homeLayout: 'article-home',
   motionPack: 'editorial-soft',
   primaryTask: 'sbm',
-  enabledTasks: ['sbm', 'profile'],
+  enabledTasks: ["sbm"],
   taskLayouts: {
-    sbm: 'sbm-curation',
-    profile: 'profile-business',
+    sbm: 'sbm-board',
   },
 }
