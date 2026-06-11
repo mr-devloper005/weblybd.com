@@ -7,7 +7,7 @@ import { buildPostUrl, fetchArticleComments, fetchTaskPostBySlug, fetchTaskPosts
 import { getTaskConfig, SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import type { SitePost } from '@/lib/site-connector'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
-import { getVisualPreset, visualSystem } from '@/editable/theme/visual-system'
+import { slot4BrandConfig } from '@/editable/theme/brand.config'
 
 export const revalidate = 3
 
@@ -149,8 +149,7 @@ const mapSrcFor = (post: SitePost) => {
 }
 
 export function TaskDetailView({ task, post, related, comments = [] }: { task: TaskKey; post: SitePost; related: SitePost[]; comments?: Array<{ id: string; name: string; comment: string; createdAt: string }> }) {
-  const preset = getVisualPreset(visualSystem.recommendedPreset as any)
-  const detailVars = { '--detail-bg': preset.colors.background, '--detail-text': preset.colors.foreground, '--detail-surface': preset.colors.surface, '--detail-accent': preset.colors.accent } as CSSProperties
+  const detailVars = { '--detail-bg': '#10120f', '--detail-text': '#f7f8ef', '--detail-surface': '#171b14', '--detail-accent': '#a8cf2a' } as CSSProperties
 
   return (
     <EditableSiteShell>
@@ -170,7 +169,7 @@ export function TaskDetailView({ task, post, related, comments = [] }: { task: T
 function BackLink({ task }: { task: TaskKey }) {
   const taskConfig = getTaskConfig(task)
   return (
-    <Link href={taskConfig?.route || '/'} className="inline-flex items-center gap-2 rounded-full border border-[var(--editable-border)] bg-white/70 px-4 py-2 text-sm font-black">
+    <Link href={taskConfig?.route || '/'} className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-[#10120f] px-4 py-2 text-sm font-black text-[#f7f8ef]">
       <ArrowLeft className="h-4 w-4" /> Back to {taskConfig?.label || 'posts'}
     </Link>
   )
@@ -297,13 +296,23 @@ function ImageDetail({ post, related }: { post: SitePost; related: SitePost[] })
 function BookmarkDetail({ post, related }: { post: SitePost; related: SitePost[] }) {
   const website = getField(post, ['website', 'url', 'link'])
   return (
-    <section className="mx-auto grid max-w-[var(--editable-container)] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-8 lg:py-16">
-      <article className="rounded-[2.7rem] border border-[var(--editable-border)] bg-white p-7 shadow-[0_30px_90px_rgba(15,23,42,0.08)] sm:p-10">
+    <section className="mx-auto grid max-w-[1180px] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8 lg:py-16">
+      <article className="rounded-lg border border-white/10 bg-[#171b14] p-7 shadow-[0_30px_90px_rgba(0,0,0,0.3)] sm:p-10">
         <BackLink task="sbm" />
-        <div className="mt-10 flex h-20 w-20 items-center justify-center rounded-[2rem] bg-[var(--detail-text)] text-[var(--detail-bg)]"><Bookmark className="h-9 w-9" /></div>
-        <h1 className="mt-7 text-4xl font-black leading-[0.98] tracking-[-0.07em] sm:text-6xl">{post.title}</h1>
-        {website ? <Link href={website} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--detail-text)] px-5 py-3 text-sm font-black text-[var(--detail-bg)]">Open saved resource <ExternalLink className="h-4 w-4" /></Link> : null}
-        <BodyContent post={post} />
+        <div className="mt-10 flex h-20 w-20 items-center justify-center rounded-md bg-[#a8cf2a] text-[#11140f]"><Bookmark className="h-9 w-9" /></div>
+        <p className="mt-8 text-xs font-black uppercase tracking-[0.18em] text-[#a8cf2a]">Social bookmarking detail</p>
+        <h1 className="mt-4 text-4xl font-black leading-tight tracking-normal text-white sm:text-5xl">{post.title}</h1>
+        {website ? <p className="mt-5 break-all rounded-md border border-white/10 bg-[#10120f] p-4 text-sm font-bold text-[#b7bea7]">{website.replace(/^https?:\/\//, '')}</p> : null}
+        <div className="mt-8 flex flex-wrap gap-3">
+          {website ? <Link href={website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md bg-[#a8cf2a] px-5 py-3 text-sm font-black text-[#11140f]">Open saved resource <ExternalLink className="h-4 w-4" /></Link> : null}
+          <Link href="/search?task=sbm" className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-[#10120f] px-5 py-3 text-sm font-black text-white">Search SBM</Link>
+          <Link href="/create" className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-[#10120f] px-5 py-3 text-sm font-black text-white">Submit another</Link>
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          {['Direct source action', 'SBM category flow', 'Clean resource page'].map((item) => (
+            <div key={item} className="rounded-md border border-white/10 bg-[#10120f] p-4 text-sm font-black text-[#dfe8cf]">{item}</div>
+          ))}
+        </div>
       </article>
       <RelatedPanel task="sbm" post={post} related={related} />
     </section>
@@ -427,23 +436,24 @@ function BadgeLine({ label, value }: { label: string; value: string }) {
 
 function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey; post: SitePost; related: SitePost[]; compact?: boolean }) {
   const taskConfig = getTaskConfig(task)
+  const showAbout = !compact && task !== 'sbm'
+  void post
   return (
     <aside className="min-w-0 space-y-5">
-      {!compact ? (
-        <div className="rounded-[2rem] border border-[var(--editable-border)] bg-white/70 p-5 backdrop-blur">
+      {showAbout ? (
+        <div className="rounded-lg border border-white/10 bg-[#171b14] p-5 backdrop-blur">
           <p className="text-xs font-black uppercase tracking-[0.22em] opacity-55">About this post</p>
           <div className="mt-4 grid gap-3 text-sm font-bold opacity-75">
             <p className="inline-flex items-center gap-2"><Tag className="h-4 w-4" /> Task: {taskConfig?.label || task}</p>
-            <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {SITE_CONFIG.name}</p>
-            {post.publishedAt ? <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p> : null}
+            <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {slot4BrandConfig.siteName}</p>
           </div>
         </div>
       ) : null}
       {related.length ? (
-        <div className="rounded-[2rem] border border-[var(--editable-border)] bg-white/70 p-5 backdrop-blur">
+        <div className="rounded-lg border border-white/10 bg-[#171b14] p-5 backdrop-blur">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-lg font-black tracking-[-0.04em]">More like this</h2>
-            <Link href={taskConfig?.route || '/'} className="text-xs font-black uppercase tracking-[0.16em] opacity-55">View all</Link>
+            <h2 className="text-lg font-black tracking-normal">{task === 'sbm' ? 'Related bookmarks' : 'More like this'}</h2>
+            <Link href={taskConfig?.route || '/'} className="text-xs font-black uppercase tracking-[0.14em] text-[#a8cf2a]">View all</Link>
           </div>
           <div className="mt-5 grid gap-3">
             {related.map((item) => <RelatedCard key={item.id || item.slug} task={task} post={item} />)}
@@ -457,11 +467,11 @@ function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey;
 function RelatedCard({ task, post }: { task: TaskKey; post: SitePost }) {
   const image = getImages(post)[0]
   return (
-    <Link href={buildPostUrl(task, post.slug)} className="group flex gap-3 rounded-2xl border border-[var(--editable-border)] bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-lg">
-      {image && task !== 'sbm' ? <img src={image} alt="" className="h-20 w-20 shrink-0 rounded-xl object-cover" /> : <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-[var(--detail-bg)]"><FileText className="h-6 w-6 opacity-45" /></div>}
+    <Link href={buildPostUrl(task, post.slug)} className="group flex gap-3 rounded-md border border-white/10 bg-[#10120f] p-3 transition hover:-translate-y-0.5 hover:border-[#a8cf2a]/70">
+      {image && task !== 'sbm' ? <img src={image} alt="" className="h-20 w-20 shrink-0 rounded-md object-cover" /> : <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-md bg-[#a8cf2a]/10 text-[#a8cf2a]"><FileText className="h-6 w-6 opacity-80" /></div>}
       <div className="min-w-0">
-        <h3 className="line-clamp-3 text-sm font-black leading-tight tracking-[-0.03em]">{post.title}</h3>
-        <p className="mt-2 line-clamp-2 text-xs leading-5 opacity-60">{summaryText(post)}</p>
+        <h3 className="line-clamp-3 text-sm font-black leading-tight tracking-normal text-white">{post.title}</h3>
+        <p className="mt-2 line-clamp-2 text-xs leading-5 text-[#b7bea7]">{summaryText(post)}</p>
       </div>
     </Link>
   )

@@ -27,12 +27,12 @@ export const taskPageVoices = {
     chips: ['Fast scan', 'Offers', 'Action cues'],
   },
   sbm: {
-    eyebrow: 'Saved resources',
-    headline: 'Social bookmarks arranged like curated collections.',
-    description: 'Bookmark pages should feel like shelves of useful resources, tools, references, and collections.',
-    filterLabel: 'Filter collection',
-    secondaryNote: 'Curated resources need grouping and calm metadata.',
-    chips: ['Collections', 'Resources', 'Reference flow'],
+    eyebrow: 'Social bookmarking',
+    headline: 'SBM links arranged for fast resource discovery.',
+    description: 'Browse submitted social bookmarks, source URLs, categories, and notes through compact cards designed for scanning.',
+    filterLabel: 'Filter SBM category',
+    secondaryNote: 'Useful bookmarks need clear titles, visible context, and direct source actions.',
+    chips: ['SBM links', 'Source URLs', 'Curated categories'],
   },
   profile: {
     eyebrow: 'People and profiles',

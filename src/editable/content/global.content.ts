@@ -3,16 +3,17 @@ import { slot4BrandConfig } from '@/editable/theme/brand.config'
 export const globalContent = {
   site: {
     name: slot4BrandConfig.siteName,
-    tagline: slot4BrandConfig.tagline || 'Independent reading platform',
+    tagline: slot4BrandConfig.tagline || 'Social bookmarking directory',
     domain: slot4BrandConfig.domain,
     baseUrl: slot4BrandConfig.baseUrl,
   },
   nav: {
-    tagline: 'Independent reading platform',
+    tagline: 'Social bookmarking directory',
     primaryLinks: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Visuals', href: '/image-sharing' },
-      { label: 'Listings', href: '/listings' },
+      { label: 'SBM', href: '/sbm' },
+      { label: 'Submit', href: '/create' },
+      { label: 'Search', href: '/search' },
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ],
     actions: {
@@ -21,16 +22,16 @@ export const globalContent = {
     },
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
-    description: 'A connected publishing surface for articles, visuals, listings, profiles, bookmarks, and downloadable resources.',
+    tagline: 'Social bookmarking built for discovery',
+    description: 'A focused SBM hub for submitting, organizing, and discovering useful web resources through clean bookmark pages.',
     columns: [
       {
         title: 'Explore',
         links: [
-          { label: 'Articles', href: '/articles' },
-          { label: 'Listings', href: '/listings' },
-          { label: 'Images', href: '/image-sharing' },
-          { label: 'PDF Library', href: '/pdf' },
+          { label: 'Social Bookmarking', href: '/sbm' },
+          { label: 'Search Bookmarks', href: '/search?task=sbm' },
+          { label: 'Create Bookmark', href: '/create' },
+          { label: 'Latest Resources', href: '/sbm' },
         ],
       },
       {
@@ -41,13 +42,13 @@ export const globalContent = {
         ],
       },
     ],
-    bottomNote: 'Built for clean discovery and connected publishing.',
+    bottomNote: 'Curated social bookmarks, useful categories, and faster resource discovery.',
   },
   commonLabels: {
     readMore: 'Read more',
     viewAll: 'View all',
     explore: 'Explore',
-    latest: 'Latest',
+    latest: 'Latest bookmarks',
     related: 'Related',
     published: 'Published',
   },
