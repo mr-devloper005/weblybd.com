@@ -12,6 +12,10 @@
 */
 
 body {
+  --editable-page-bg: var(--slot4-page-bg);
+  --editable-page-text: var(--slot4-page-text);
+  --editable-border: rgba(255, 255, 255, 0.1);
+  --editable-container: 1180px;
   background-color: var(--slot4-page-bg) !important;
   color: var(--slot4-page-text) !important;
   background-image: var(--slot4-body-gradient) !important;
@@ -41,4 +45,112 @@ body {
 
 .article-content a {
   color: var(--slot4-accent-fill);
+}
+
+/*
+  Compatibility layer for /sbm/[slug].
+  That route is wired to the shared task detail renderer, so keep the fix here
+  instead of editing non-editable route/component files.
+*/
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"],
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] > nav {
+  background: #9fbe24 !important;
+  color: #11140f !important;
+  border-color: rgba(17, 20, 15, 0.22) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] a,
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] button {
+  color: #11140f !important;
+}
+
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] a[href="/signup"],
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] button[class*="bg-[#2f1d16]"] {
+  background: #0b0d0a !important;
+  color: #f7f8ef !important;
+  border-radius: 0.375rem !important;
+}
+
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] span[class*="bg-[#fffaf2]"] {
+  border-radius: 0.375rem !important;
+  border-color: rgba(17, 20, 15, 0.22) !important;
+  background: #f7f8ef !important;
+}
+
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] input[name="q"] {
+  border-color: rgba(17, 20, 15, 0.22) !important;
+  background: #f7f8ef !important;
+  color: #11140f !important;
+  border-radius: 0.375rem !important;
+}
+
+body:has(a[href="/sbm"]) header[class*="bg-[#fff7ee]"] input[name="q"]::placeholder {
+  color: #66705a !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] {
+  background: #10120f !important;
+  color: #f7f8ef !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] main {
+  max-width: 1180px !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] main > a:first-of-type {
+  color: #dfe8cf !important;
+  background: #171b14 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.375rem !important;
+  padding: 0.65rem 1rem !important;
+  width: fit-content !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] h1,
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] h2,
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] p[class*="text-foreground"] {
+  color: #f7f8ef !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] [class*="text-muted-foreground"],
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] [class*="text-foreground"] + div,
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] .prose,
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] .prose p {
+  color: #b7bea7 !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] [class*="bg-card"],
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] nav[class*="bg-card"],
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] div[class*="bg-white"] {
+  background: #171b14 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f7f8ef !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] [class*="bg-secondary"],
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] [class*="bg-[#fffaf2]"],
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] span[class*="rounded"] {
+  background: #a8cf2a !important;
+  color: #11140f !important;
+  border-color: #a8cf2a !important;
+}
+
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] a[class*="text-primary"],
+body:has(a[href="/sbm"]) div[class*="bg-[#F6F6F6]"] a[href^="/search"] {
+  color: #a8cf2a !important;
+}
+
+body:has(a[href="/sbm"]) footer[class*="bg-[#222]"] {
+  background: #0b0d0a !important;
+  color: #f7f8ef !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body:has(a[href="/sbm"]) footer[class*="bg-[#222]"]::before {
+  content: "";
+  display: block;
+  height: 72px;
+  margin: -3rem -1rem 2rem;
+  background: #9fbe24;
 }
