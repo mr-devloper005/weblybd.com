@@ -7,6 +7,7 @@ import { buildPostUrl, fetchArticleComments, fetchTaskPostBySlug, fetchTaskPosts
 import { getTaskConfig, SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import type { SitePost } from '@/lib/site-connector'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
+import { AdInlineBand, AdStack } from '@/editable/components/AdSlots'
 import { slot4BrandConfig } from '@/editable/theme/brand.config'
 
 export const revalidate = 3
@@ -185,6 +186,7 @@ function ArticleDetail({ post, related, comments }: { post: SitePost; related: S
         <h1 className="mt-4 text-4xl font-black leading-[0.98] tracking-[-0.07em] sm:text-5xl lg:text-7xl">{post.title}</h1>
         {images[0] ? <img src={images[0]} alt="" className="mt-8 max-h-[620px] w-full rounded-[2rem] object-cover" /> : null}
         <BodyContent post={post} />
+        <AdInlineBand className="mt-10" />
         <EditableComments slug={post.slug} comments={comments} />
       </article>
       <RelatedPanel task="article" post={post} related={related} />
@@ -440,6 +442,7 @@ function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey;
   void post
   return (
     <aside className="min-w-0 space-y-5">
+      <AdStack surface="detailSidebar" />
       {showAbout ? (
         <div className="rounded-lg border border-white/10 bg-[#171b14] p-5 backdrop-blur">
           <p className="text-xs font-black uppercase tracking-[0.22em] opacity-55">About this post</p>
